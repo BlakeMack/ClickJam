@@ -2,17 +2,13 @@ import { useState } from 'react'
 import './App.css'
 import * as Tone from 'tone'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
 
-  // const triggerSynth = () => {
-  //   //create a synth and connect it to the main output (your speakers)
-  //   const synth = new Tone.PolySynth(Tone.Synth).toDestination();
-  //   //play a middle 'C' for the duration of an 8th note
-  //   synth.triggerAttackRelease(["D4", "F4", "A4", "C5", "E5"], "8n");
-  // }
+  type TriggerPianoChord = () => void;
 
-  const triggerPianoChord = () => {
+  type StringArray = Array<string>;
+
+  const triggerPianoChord: TriggerPianoChord = () => {
     const sampler = new Tone.Sampler({
       urls: {
         "C4": "Keyzone_C4.mp3",
@@ -24,7 +20,8 @@ function App() {
       baseUrl: "src/assets/Mp3-Keyzone-oneshots-small/",
     }).toDestination();
     Tone.loaded().then(() => {
-      sampler.triggerAttackRelease(["C4", "E4", "G4", "Bb4"], 1);
+    const c7chord:StringArray = ["C4", "E4", "G4", "Bb4"]
+      sampler.triggerAttackRelease(c7chord, 1);
     })
   }
 
